@@ -1,0 +1,44 @@
+{
+  "model_type": "MLPRegressor",
+  "input_type": "ECFP4 Morgan Fingerprint (radius=2, nBits=2048)",
+  "architecture": {
+    "input_dim": 2048,
+    "hidden_dim": 512,
+    "hidden_dim_2": 256,
+    "output_dim": 1,
+    "activation": "ReLU",
+    "regularization": "BatchNorm1d + Dropout(p=0.3)",
+    "loss_function": "MSELoss"
+  },
+  "training_params": {
+    "epochs": 50,
+    "batch_size": 16,
+    "learning_rate": 0.0001,
+    "optimizer": "Adam",
+    "random_seed": 48
+  },
+  "data": {
+    "source": "ChEMBL CHEMBL2146312 (WRN)",
+    "data_path": "./data/wrn_pic50_train.csv",
+    "train_test_split": "80% / 20%",
+    "split_random_state": 42
+  },
+  "device_info": {
+    "python_version": "3.9.23 | packaged by conda-forge | (main, Jun  4 2025, 17:49:16) [MSC v.1929 64 bit (AMD64)]",
+    "pytorch_version": "2.0.1+cu118",
+    "device": "cuda",
+    "cuda_available": true,
+    "platform": "win32",
+    "cuda_version": "11.8",
+    "gpu_name": "NVIDIA GeForce RTX 4060 Laptop GPU",
+    "gpu_count": 1,
+    "gpu_memory_gb": 8.0
+  },
+  "training_results": {
+    "best_val_rmse": 2.8853,
+    "total_epochs_completed": 50,
+    "total_training_time_sec": 1.1,
+    "total_training_time_min": 0.0,
+    "avg_epoch_time_sec": 0.0
+  }
+}

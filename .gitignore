@@ -1,0 +1,15 @@
+# Python 运行时产物
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+
+# TCMBank 原始 mol2 数据（约 630MB，本地保留）。
+# 虚拟筛选直接用 data/tcmbank/tcm_smiles.csv（已提交），无需 mol2 原始文件；
+# 如需从原始 mol2 重新提取 SMILES，可重新下载 TCMBank 数据（见 README 步骤4）。
+DrugCLIP_Project/Drug-The-Whole-Genome-main/data/tcmbank/all_mol2/
+DrugCLIP_Project/Drug-The-Whole-Genome-main/data/tcmbank/mol2_files/
+DrugCLIP_Project/Drug-The-Whole-Genome-main/data/tcmbank/all_mol2.zip
+
+# 运行时/编辑器产物
+prediction_results.csv
+.vscode/
