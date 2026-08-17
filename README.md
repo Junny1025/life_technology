@@ -46,29 +46,21 @@ DrugCLIP_Project/
 │   │   └── tcmbank/                       # TCMBank化合物mol2文件
 │   ├── wrn_model/                         # 训练产出
 │   │   ├── best_model.pth                 # 最佳模型权重
-│   │   ├── final_model.pth                # 最终模型权重
 │   │   ├── scaler.pkl                     # 特征标准化器
 │   │   ├── training_log.txt               # 训练日志（硬件、配置、每轮指标）
 │   │   ├── training_history.csv           # 训练历史记录（CSV格式）
 │   │   └── training_config.json           # 训练配置（JSON格式）
 │   ├── docs/                              # 许可证文件
 │   ├── wrn_chembl_ic50_api.csv            # ChEMBL API原始数据
-│   ├── datachembl_wrn_raw.csv             # ChEMBL导出原始数据
-│   └── tcmbank_screening_results.csv      # TCMBank虚拟筛选结果
+│   └── datachembl_wrn_raw.csv             # ChEMBL导出原始数据
 │
 ├── docking/                               # 分子对接模块
 │   ├── run_docking_final.py               # 对接主脚本（完整自动对接：受体清理+配体修复+Vina对接+汇总）
-│   ├── clean_protein.py                   # 蛋白结构清理（PDB→受体）
-│   ├── generate_pdbqt.py                  # PDBQT文件生成（RDKit）
-│   ├── fix_pdbqt.py                       # PDBQT格式修复
-│   ├── force_fix_pdbqt.py                 # PDBQT强制修复（BOM处理）
 │   ├── vina_1.2.5_win.exe                 # AutoDock Vina可执行文件
 │   ├── 8PFL.pdb                           # WRN蛋白原始结构（PDB）
 │   ├── wrn_receptor.pdb                   # 清理后的受体结构（仅ATOM行）
 │   └── vina_final_results/                # 对接成功结果（提交包附带，含完整日志）
 │       ├── wrn_receptor.pdbqt             # 受体PDBQT
-│       ├── docking_summary.csv            # 对接汇总表
-│       ├── FINAL_REPORT.txt               # 对接完整报告
 │       ├── candidate_01/                  # 候选1对接结果（结合能-7.033）
 │       ├── candidate_02/                  # 候选2对接结果（结合能-5.180）
 │       └── candidate_03/                  # 候选3对接结果（结合能-7.735）★最佳
@@ -76,13 +68,10 @@ DrugCLIP_Project/
 ├── result/                                # 结果输出目录
 │   ├── results.csv                        # 标准化最终结果（提交格式，14字段，Top10）
 │   ├── results.xlsx                       # 标准化最终结果（Excel版）
-│   ├── 筛选结果tcmbank_screening_results.csv  # 虚拟筛选完整结果（29,857条）
-│   ├── 分子对接报告FINAL_REPORT.txt        # 对接完整报告
-│   ├── 结合能对比docking_summary.csv        # 对接汇总
+│   ├── tcmbank_screening_results.csv         # 虚拟筛选完整结果（29,857条）
+│   ├── FINAL_REPORT.txt                   # 对接完整报告
+│   ├── docking_summary.csv                # 对接汇总
 │   ├── top10_hits.png                     # Top10化合物结构图
-│   ├── 模型流程图framework.png             # 模型流程图
-│   ├── 训练好的模型权重best_model.pth       # 训练好的模型权重
-│   ├── WRN数据datachembl_wrn_raw.csv        # 原始ChEMBL数据
 │   └── training/                          # 训练数据
 │
 └── notebooks/
@@ -139,7 +128,7 @@ conda install openbabel -c conda-forge -y
 
 ### 方式一：一键运行全流程
 ```bash
-python main.py --mode full --data_dir ./data --output_dir ./result
+python main.py --mode full
 ```
 
 ### 方式二：分步运行
@@ -171,23 +160,24 @@ python tcmbank_pipeline.py
 
 #### 步骤5：虚拟筛选
 ```bash
-python predict.py --model_path ./wrn_model/best_model.pth --scaler_path ./wrn_model/scaler.pkl --input ./data/tcmbank/tcm_smiles.csv --output ./result/screening_results.csv
+cd ../..    # 回到项目根目录（predict.py 位于根目录）
+python predict.py --model_path ./DrugCLIP_Project/Drug-The-Whole-Genome-main/wrn_model/best_model.pth --scaler_path ./DrugCLIP_Project/Drug-The-Whole-Genome-main/wrn_model/scaler.pkl --input ./DrugCLIP_Project/Drug-The-Whole-Genome-main/data/tcmbank/tcm_smiles.csv --output ./result/screening_results.csv
 ```
-输出: 按pIC50降序排列的筛选结果
+输出: 按pIC50降序排列的筛选结果（`result/screening_results.csv`）
 
 #### 步骤6：分子对接（可选）
 ```bash
-cd ../docking
+cd DrugCLIP_Project/docking
 python run_docking_final.py  # 完整自动对接脚本（受体清理+配体修复+Vina对接）
 # 需要 Open Babel: conda install openbabel -c conda-forge
 ```
 输出: `vina_final_results/docking_summary.csv`
 
-> **说明**: 提交包已附带完成的成功对接结果于 `docking/vina_final_results/`（含 vina.log 与 FINAL_REPORT.txt），无需重新对接即可评审。重跑对接会覆盖 `vina_final_results/`，如需保留原始结果请先备份。
+> **说明**: 提交包已附带完成的成功对接结果于 `docking/vina_final_results/`
 
 ### 方式三：仅预测（使用预训练模型）
 ```bash
-python predict.py --model_path ./result/训练好的模型权重best_model.pth --input your_compounds.csv --output predictions.csv
+python predict.py --model_path ./DrugCLIP_Project/Drug-The-Whole-Genome-main/wrn_model/best_model.pth --input your_compounds.csv --output predictions.csv
 ```
 输入CSV需包含 `SMILES` 列。
 

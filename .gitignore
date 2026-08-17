@@ -12,4 +12,5 @@ DrugCLIP_Project/Drug-The-Whole-Genome-main/data/tcmbank/all_mol2.zip
 
 # 运行时/编辑器产物
 prediction_results.csv
+result/best_model_demo.pth
 .vscode/

@@ -10,7 +10,7 @@ DrugCLIP-WRN 预测/推理入口
   python predict.py --model_path ./wrn_model/best_model.pth --scaler_path ./wrn_model/scaler.pkl --input compounds.csv --output predictions.csv
 
   # 使用result目录中的预训练模型
-  python predict.py --model_path ./result/训练好的模型权重best_model.pth --input ./data/your_library.csv
+  python predict.py --model_path ./DrugCLIP_Project/Drug-The-Whole-Genome-main/wrn_model/best_model.pth --input ./data/your_library.csv
 
   # 单分子预测
   python predict.py --model_path ./wrn_model/best_model.pth --scaler_path ./wrn_model/scaler.pkl --smiles "CCO"
@@ -161,7 +161,7 @@ def main():
   python predict.py --model_path ./wrn_model/best_model.pth --scaler_path ./wrn_model/scaler.pkl --input compounds.csv
 
   # 使用预训练模型
-  python predict.py --model_path ./result/训练好的模型权重best_model.pth --input your_compounds.csv --output results.csv
+  python predict.py --model_path ./DrugCLIP_Project/Drug-The-Whole-Genome-main/wrn_model/best_model.pth --input your_compounds.csv --output results.csv
 
   # 预测单分子
   python predict.py --model_path ./wrn_model/best_model.pth --smiles "CC1=CC=C(C=C1)C(=O)NO"

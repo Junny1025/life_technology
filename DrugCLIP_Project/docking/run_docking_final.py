@@ -14,7 +14,7 @@ DOCKING_DIR = os.path.dirname(os.path.abspath(__file__))
 PROJECT_DIR = os.path.dirname(DOCKING_DIR)          # DrugCLIP_Project
 PROJECT_ROOT = os.path.dirname(PROJECT_DIR)         # 项目根目录
 VINA_EXE = os.path.join(DOCKING_DIR, "vina_1.2.5_win.exe")
-SCREENING_RESULTS = os.path.join(PROJECT_ROOT, "result", "筛选结果tcmbank_screening_results.csv")
+SCREENING_RESULTS = os.path.join(PROJECT_ROOT, "result", "tcmbank_screening_results.csv")
 if not os.path.exists(SCREENING_RESULTS):
     SCREENING_RESULTS = os.path.join(PROJECT_DIR, "Drug-The-Whole-Genome-main", "tcmbank_screening_results.csv")
 PROTEIN_PDB = os.path.join(DOCKING_DIR, "wrn_receptor.pdb")

@@ -133,7 +133,7 @@ def step_screen(input_csv=None, output_csv=None, model_path=None, scaler_path=No
     if input_csv is None:
         input_csv = os.path.join(SRC_DIR, "data", "tcmbank", "tcm_smiles.csv")
     if output_csv is None:
-        output_csv = os.path.join(RESULT_DIR, "筛选结果tcmbank_screening_results.csv")
+        output_csv = os.path.join(RESULT_DIR, "tcmbank_screening_results.csv")
 
     # 检查必要文件
     for path, name in [(model_path, "模型文件"), (scaler_path, "标准化器"), (input_csv, "输入化合物库")]:
@@ -254,9 +254,9 @@ def step_generate_report(screening_csv=None, docking_csv=None, top_n=10):
     log("=" * 60)
 
     if screening_csv is None:
-        screening_csv = os.path.join(RESULT_DIR, "筛选结果tcmbank_screening_results.csv")
+        screening_csv = os.path.join(RESULT_DIR, "tcmbank_screening_results.csv")
     if docking_csv is None:
-        docking_csv = os.path.join(DOCK_DIR, "vina_final_results", "docking_summary.csv")
+        docking_csv = os.path.join(RESULT_DIR, "docking_summary.csv")
 
     # 读取筛选结果
     if not os.path.exists(screening_csv):
@@ -449,7 +449,7 @@ def main():
         os.makedirs(result_dir, exist_ok=True)
         global RESULT_DIR
         RESULT_DIR = result_dir
-        screen_output_default = os.path.join(result_dir, "筛选结果tcmbank_screening_results.csv")
+        screen_output_default = os.path.join(result_dir, "tcmbank_screening_results.csv")
     else:
         screen_output_default = None  # 使用 step_screen 内置默认值
 
